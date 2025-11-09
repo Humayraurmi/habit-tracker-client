@@ -14,6 +14,7 @@ import Register from './components/Register/Register.jsx';
 import Login from './components/Login/Login.jsx';
 import AddHabits from './components/AddHabits/AddHabits.jsx';
 import MyHabits from './components/MyHabits/MyHabits.jsx';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute.jsx';
 
 const router = createBrowserRouter([
   {
@@ -38,11 +39,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'addHabit',
-        element: <AddHabits></AddHabits>
+        element: <PrivateRoute><AddHabits></AddHabits></PrivateRoute>
       },
       {
         path: 'myHabits',
-        element: <MyHabits></MyHabits>
+        element: <PrivateRoute><MyHabits></MyHabits></PrivateRoute>
       }
     ]
   },

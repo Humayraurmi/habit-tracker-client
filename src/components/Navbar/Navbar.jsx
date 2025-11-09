@@ -22,13 +22,8 @@ const Navbar = () => {
     const links = <>
         <li><NavLink to='/'>Home</NavLink></li>
         <li><NavLink to='/publicHabits'>Public Habits</NavLink></li>
-
-        {
-            user && <>
-                <li><NavLink to='/addHabit'>Add Habit</NavLink></li>
-                <li><NavLink to='/myHabits'>My Habits</NavLink></li>
-            </>
-        }
+        <li><NavLink to='/addHabit'>Add Habit</NavLink></li>
+        <li><NavLink to='/myHabits'>My Habits</NavLink></li>
     </>
 
     return (

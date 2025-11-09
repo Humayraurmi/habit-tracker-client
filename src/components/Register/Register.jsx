@@ -2,7 +2,7 @@ import React, { use, useState } from 'react';
 import toast from 'react-hot-toast';
 import running from '../../assets/running.avif'
 import { AuthContext } from '../../context/AuthContext';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 
 const Register = () => {
     const [name, setName] = useState('');
@@ -12,6 +12,10 @@ const Register = () => {
     const [error, setError] = useState('');
 
     const { signInWithGoogle, createUser, updateUserProfile } = use(AuthContext);
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
 
     const validatePassword = (pwd) => {
         let validationError = '';
@@ -60,11 +64,13 @@ const Register = () => {
                             .then(res => res.json())
                             .then(data => {
                                 console.log('data after save ', data);
+                                navigate(from, { replace: true });
                             });
                     })
                     .catch(profileError => {
                         console.error('Profile update error:', profileError);
                         toast.error('Registration successful, but profile update failed.');
+                        navigate(from, { replace: true });
                     });
             })
             .catch(err => {
@@ -93,7 +99,8 @@ const Register = () => {
                 })
                     .then(res => res.json())
                     .then(data => {
-                        console.log('data after save ', data)
+                        console.log('data after save ', data);
+                        navigate(from, { replace: true });
                     })
                 toast.success('Successfully logged in with Google!');
             })
@@ -133,8 +140,8 @@ const Register = () => {
                             type="text"
                             className="input"
                             placeholder="photoURL"
-                            value={photoURL} 
-                            onChange={(e) => setPhotoURL(e.target.value)} 
+                            value={photoURL}
+                            onChange={(e) => setPhotoURL(e.target.value)}
                             required
                         />
                         <label className="label">Password</label>

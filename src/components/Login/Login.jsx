@@ -1,7 +1,7 @@
 import React, { use, useState } from 'react';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../../context/AuthContext';
-import { Link, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -9,6 +9,9 @@ const Login = () => {
     const [error, setError] = useState('');
 
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const from = location.state?.from?.pathname || "/";
 
     const { signInUser, signInWithGoogle } = use(AuthContext);
 
@@ -19,7 +22,7 @@ const Login = () => {
             .then(result => {
                 console.log('User logged in successfully:', result.user);
                 toast.success('Successfully logged in!');
-                navigate('/');
+                navigate(from, { replace: true });
             })
             .catch(err => {
                 const firebaseError = err.message.replace('Firebase: Error (auth/', '').replace(').', '');
@@ -48,7 +51,7 @@ const Login = () => {
                     .then(res => res.json())
                     .then(data => {
                         console.log('data after save ', data);
-                        navigate('/');
+                        navigate(from, { replace: true });
                     });
                 toast.success('Successfully logged in with Google!');
             })
