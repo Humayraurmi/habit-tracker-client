@@ -1,3 +1,4 @@
+// Benefits.jsx
 import React, { use } from 'react';
 import {
     FaBrain, FaHeartbeat, FaRocket, FaTrophy, FaQuestion
@@ -11,38 +12,41 @@ const IconMap = {
     default: FaQuestion
 };
 
-const Benefits = ({ benefitsHabitsPromise }) => {
+const Benefits = ({ benefitsHabitsPromise, sideBySideView }) => {
     const benefitCards = use(benefitsHabitsPromise);
-    console.log(benefitCards)
+    const sectionClasses = sideBySideView ? "bg-blue-50 p-6 rounded-xl h-full" : "py-16 bg-white";
+
     return (
-        <section className="py-16 bg-white">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
+        <section className={sectionClasses}>
+            <div className="max-w-none">
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">
                     Why Building Habits Matters
                 </h2>
 
                 <div
-                    className="grid gap-8 
-                     sm:grid-cols-1   
-                     md:grid-cols-2   
-                     lg:grid-cols-4"
+                    className="grid gap-4 sm:grid-cols-2 md:grid-cols-2"
                 >
                     {benefitCards.map((card) => {
                         const IconComponent = IconMap[card.icon_name] || IconMap.default;
 
+                        const cardClasses = "bg-white p-4 rounded-xl shadow-md flex flex-col items-center text-center h-full";
+                        const iconClasses = "text-green-500 text-4xl mb-3";
+                        const titleClasses = "text-lg font-semibold text-gray-800 mb-1";
+                        const descriptionClasses = "text-gray-600 text-sm flex-grow";
+
                         return (
                             <div
                                 key={card._id}
-                                className="bg-gray-50 p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col items-center text-center h-full border border-gray-100"
+                                className={cardClasses}
                             >
-                                <div className="text-blue-600 text-5xl mb-4">
+                                <div className={iconClasses}>
                                     <IconComponent />
                                 </div>
-                                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                                <h3 className={titleClasses}>
                                     {card.title}
                                 </h3>
 
-                                <p className="text-gray-600 text-sm flex-grow">
+                                <p className={descriptionClasses}>
                                     {card.description}
                                 </p>
                             </div>

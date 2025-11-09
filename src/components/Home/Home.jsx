@@ -4,6 +4,7 @@ import FeaturedHabits from '../FeaturedHabits/FeaturedHabits';
 import Benefits from '../Benefits/Benefits';
 import HowHabitSyncWorks from '../HowHabitSyncWorks/HowHabitSyncWorks';
 import Testimonials from '../Testimonials/Testimonials';
+import LandingSections from '../../LandingSection/LandingSection';
 
 const featuredHabitsPromise = fetch('http://localhost:3000/featured-habits').then(res=>res.json())
 const benefitsHabitsPromise = fetch("http://localhost:3000/benefits").then(res=>res.json())
@@ -16,9 +17,11 @@ const Home = () => {
         <div>
             <HeroSlider></HeroSlider>
             <FeaturedHabits featuredHabitsPromise={featuredHabitsPromise}></FeaturedHabits>
-            <Benefits benefitsHabitsPromise={benefitsHabitsPromise}></Benefits>
-            <HowHabitSyncWorks stepsPromise ={howItWorksStepsPromise}></HowHabitSyncWorks>
-            <Testimonials testimonialsPromise ={testimonialsPromise}></Testimonials>
+            <LandingSections
+                benefitsHabitsPromise={benefitsHabitsPromise}
+                howItWorksStepsPromise={howItWorksStepsPromise}
+                testimonialsPromise={testimonialsPromise}
+            ></LandingSections>
         </div>
     );
 };
