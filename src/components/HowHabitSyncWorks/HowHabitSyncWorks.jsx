@@ -4,7 +4,6 @@ import {
   FaCheckCircle, FaChartArea, FaTasks, FaTrophy, FaQuestion 
 } from 'react-icons/fa'; 
 
-// ব্যাকএন্ডের string icon_name এর সাথে react-icons কম্পোনেন্ট ম্যাপ করা
 const IconMap = {
     FaCheckCircle: FaCheckCircle,
     FaChartArea: FaChartArea,
@@ -16,7 +15,6 @@ const IconMap = {
 
 const HowHabitSyncWorks = ({ stepsPromise }) => {
   
-  // 🔑 use Hook ব্যবহার করে অ্যাসিঙ্ক্রোনাস ডেটা বের করা 🔑
   const steps = use(stepsPromise); 
 
   return (
@@ -27,12 +25,10 @@ const HowHabitSyncWorks = ({ stepsPromise }) => {
           How HabitSync Helps You Succeed
         </h2>
 
-        {/* রেসপনসিভ গ্রিড লেআউট */}
         <div 
           className="grid gap-10 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
         >
           {steps.map((step) => {
-            // ডায়নামিকভাবে আইকন কম্পোনেন্ট নির্ধারণ করা
             const IconComponent = IconMap[step.icon_name] || IconMap.default;
 
             return (
@@ -40,17 +36,14 @@ const HowHabitSyncWorks = ({ stepsPromise }) => {
                 key={step._id} 
                 className="bg-white p-8 rounded-xl shadow-lg border-t-4 border-blue-500 flex flex-col items-center text-center"
               >
-                {/* আইকন রেন্ডারিং */}
                 <div className="text-blue-500 text-5xl mb-4">
                   <IconComponent /> 
                 </div>
                 
-                {/* টাইটেল */}
                 <h3 className="text-xl font-bold text-gray-800 mb-2">
-                  {step.order}. {step.title} {/* ডেটাবেস থেকে order ব্যবহার করা হলো */}
+                  {step.order}. {step.title} 
                 </h3>
 
-                {/* ডিসক্রিপশন */}
                 <p className="text-gray-600 text-sm">
                   {step.description}
                 </p>
