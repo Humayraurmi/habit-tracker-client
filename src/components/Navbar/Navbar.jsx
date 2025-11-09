@@ -1,4 +1,5 @@
 import React, { use, useState } from 'react';
+import toast from 'react-hot-toast';
 import { Link, NavLink } from 'react-router';
 import { AuthContext } from '../../context/AuthContext';
 
@@ -9,8 +10,13 @@ const Navbar = () => {
 
     const handleSignOut = () => {
         signOutUser()
-            .then()
-            .catch()
+            .then(()=>{
+                toast.success('Successfully logged out!');
+            })
+            .catch((error) => {
+                console.error(error);
+                toast.error('Error logging out. Please try again.'); // ⭐ ৩.২. লগআউট এরর
+            })
     }
 
     const links = <>

@@ -1,4 +1,5 @@
 import React, { use, useState } from 'react';
+import toast from 'react-hot-toast';
 import { AuthContext } from '../../context/AuthContext';
 import { Link, useNavigate } from 'react-router';
 
@@ -17,10 +18,13 @@ const Login = () => {
         signInUser(email, password)
             .then(result => {
                 console.log('User logged in successfully:', result.user);
+                toast.success('Successfully logged in!');
                 navigate('/');
             })
             .catch(err => {
-                setError(err.message.replace('Firebase: Error (auth/', '').replace(').', ''));
+                const firebaseError = err.message.replace('Firebase: Error (auth/', '').replace(').', '');
+                setError(firebaseError);
+                toast.error(firebaseError);
                 console.error(err);
             });
     };
@@ -46,10 +50,12 @@ const Login = () => {
                         console.log('data after save ', data);
                         navigate('/');
                     });
+                toast.success('Successfully logged in with Google!');
             })
             .catch(error => {
                 console.error('Google Sign-in Error:', error);
                 setError('Google Sign-in failed. Please try again.');
+                toast.error('Google sign-in failed. Please try again.');
             });
     };
 
@@ -88,7 +94,7 @@ const Login = () => {
                         {error && <p className="text-red-500 text-sm font-medium pt-2">{error}</p>}
 
                         <div className="mt-6">
-                            <button type="submit" className="btn btn-neutral w-full"> 
+                            <button type="submit" className="btn btn-neutral w-full">
                                 Login
                             </button>
                         </div>

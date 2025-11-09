@@ -1,4 +1,5 @@
 import React, { use, useState } from 'react';
+import toast from 'react-hot-toast';
 import running from '../../assets/running.avif'
 import { AuthContext } from '../../context/AuthContext';
 import { Link } from 'react-router';
@@ -38,15 +39,18 @@ const Register = () => {
 
         if (passwordError) {
             setError(passwordError);
+            toast.error(passwordError);
             return;
         }
 
         createUser(email, password)
             .then(result => {
+                toast('Registration successful!', { icon: '👏' });
                 console.log('User registered via Email/Password:', result.user);
                 updateUserProfile(name, photoURL)
                     .then(() => {
                         console.log('Profile updated successfully!');
+                        toast.success('Profile updated successfully! Welcome to Habit Tracker.');
                         const newUser = { name, email, image: photoURL };
                         fetch("http://localhost:3000/users", {
                             method: 'POST',
@@ -60,6 +64,7 @@ const Register = () => {
                     })
                     .catch(profileError => {
                         console.error('Profile update error:', profileError);
+                        toast.error('Registration successful, but profile update failed.');
                     });
             })
             .catch(err => {
@@ -90,9 +95,11 @@ const Register = () => {
                     .then(data => {
                         console.log('data after save ', data)
                     })
+                toast.success('Successfully logged in with Google!');
             })
             .catch(error => {
-                console.log(error)
+                console.log(error);
+                toast.error('Google sign-in failed.');
             })
     }
 
