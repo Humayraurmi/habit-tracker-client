@@ -48,7 +48,7 @@ const Navbar = () => {
             <div className="navbar-end">
                 {!user ? (
                     <>
-                        <Link to="/register" className="btn">Register</Link>
+                        <Link to="/register" className="btn">SignUp</Link>
                     </>
                 ) : (
                     <div className="flex gap-2">
