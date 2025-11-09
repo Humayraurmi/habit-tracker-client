@@ -11,7 +11,7 @@ const PrivateRoute = ({ children }) => {
         return <div className="text-center py-20 text-lg">Loading...</div>;
     }
 
-    if (user) {
+    if (user) { 
         return children;
     }
     toast.error('You must log in to access this page.');

@@ -35,21 +35,21 @@ const Navbar = () => {
                     </div>
                     <ul
                         tabIndex="-1"
-                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow font-bold text-gray-600">
                         {links}
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-xl">Habit-Tracker</a>
+                <a className="btn btn-ghost text-2xl font-bold">Habit <span className='text-[#9F62F2]'>Tracker</span></a>
             </div>
             <div className="navbar-center hidden lg:flex">
-                <ul className="menu menu-horizontal px-1">
+                <ul className="menu menu-horizontal px-1 font-bold text-gray-600">
                     {links}
                 </ul>
             </div>
             <div className="navbar-end">
                 {!user ? (
                     <>
-                        <Link to="/register" className="btn">SignUp</Link>
+                        <Link to="/register" className="btn btn-primary">SignUp</Link>
                     </>
                 ) : (
                     <div className="flex gap-2">
@@ -60,7 +60,7 @@ const Navbar = () => {
                             onClick={() => setShowDropdown(!showDropdown)}
                         />
                         <button
-                            className="btn btn-sm mt-2"
+                            className="btn btn-primary btn-sm mt-2"
                             onClick={handleSignOut}
                         >
                             Log Out
