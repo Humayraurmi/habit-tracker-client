@@ -1,4 +1,3 @@
-// LandingSections.jsx
 import React from 'react';
 import HowHabitSyncWorks from '../components/HowHabitSyncWorks/HowHabitSyncWorks';
 import Testimonials from '../components/Testimonials/Testimonials';

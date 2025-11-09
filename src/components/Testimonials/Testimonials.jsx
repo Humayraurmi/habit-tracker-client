@@ -1,4 +1,3 @@
-// Testimonials.jsx
 import React, { use } from 'react';
 import { FaQuoteLeft } from 'react-icons/fa';
 

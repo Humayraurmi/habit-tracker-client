@@ -1,4 +1,3 @@
-// Benefits.jsx
 import React, { use } from 'react';
 import {
     FaBrain, FaHeartbeat, FaRocket, FaTrophy, FaQuestion
