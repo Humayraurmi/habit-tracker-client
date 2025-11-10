@@ -3,6 +3,8 @@ import toast from 'react-hot-toast';
 import { Link, NavLink } from 'react-router';
 import { AuthContext } from '../../context/AuthContext';
 
+const LOGO_URL = "https://i.ibb.co.com/bMqn69Tp/habit-tracker-icon-lineal-color-260nw-2636078649.webp";
+
 const Navbar = () => {
     const { user, signOutUser } = use(AuthContext);
     const [showDropdown, setShowDropdown] = useState(false);
@@ -10,12 +12,12 @@ const Navbar = () => {
 
     const handleSignOut = () => {
         signOutUser()
-            .then(()=>{
+            .then(() => {
                 toast.success('Successfully logged out!');
             })
             .catch((error) => {
                 console.error(error);
-                toast.error('Error logging out. Please try again.'); // ⭐ ৩.২. লগআউট এরর
+                toast.error('Error logging out. Please try again.'); 
             })
     }
 
@@ -39,8 +41,14 @@ const Navbar = () => {
                         {links}
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-2xl font-bold">Habit <span className='text-[#9F62F2]'>Tracker</span></a>
-            </div>
+                <Link to="/" className="btn btn-ghost text-2xl font-bold p-0">
+                    <img
+                        src={LOGO_URL}
+                        alt="Habit Tracker Logo"
+                        className="w-10 h-10 mr-1 object-contain"
+                    />
+                    Habit <span className='text-[#9F62F2]'>Tracker</span>
+                </Link>            </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1 font-bold text-gray-600">
                     {links}

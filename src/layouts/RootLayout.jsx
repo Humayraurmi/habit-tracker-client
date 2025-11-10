@@ -6,10 +6,13 @@ import { Toaster } from 'react-hot-toast';
 
 const RootLayout = () => {
     return (
-        <div className='w-11/12 mx-auto'>
+        <div className=''>
             <Toaster></Toaster>
-            <Navbar></Navbar>
-            <Outlet></Outlet>
+            <div className='w-11/12 mx-auto'>
+                <Navbar></Navbar>
+                <Outlet></Outlet>
+            </div>
+
             <Footer></Footer>
         </div>
     );
