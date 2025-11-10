@@ -4,7 +4,6 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 const addHabitsPromise = "http://localhost:3000/habits";
-
 const successImage = "https://i.ibb.co.com/9k7vCj0F/successfully-completed-vector-seal-isolated-white-background-168286016.webp";
 
 const CATEGORIES = [
@@ -20,7 +19,12 @@ const AddHabits = () => {
     const userEmail = user?.email || '';
     const userName = user?.displayName || 'Unknown User';
 
-    const initialFormState = {title: '', description: '', category: CATEGORIES[0],  reminderTime: '08:00', imageURL: '',
+    const initialFormState = {
+        title: '', 
+        description: '', 
+        category: CATEGORIES[0], 
+        reminderTime: '08:00', 
+        imageURL: '',
     };
 
     const [formData, setFormData] = useState(initialFormState);
@@ -37,7 +41,9 @@ const AddHabits = () => {
         e.preventDefault();
         setLoading(true);
 
-        const newHabit = { ...formData, userEmail, userName, createdAt: new Date().toISOString(), };
+        const newHabit = { 
+            ...formData,  userEmail, userName,  createdAt: new Date().toISOString(), 
+        };
 
         try {
             const response = await fetch(`${addHabitsPromise}`, {
@@ -52,6 +58,7 @@ const AddHabits = () => {
             if (result.acknowledged) {
                 toast.success('Habit added successfully!');
                 
+                setLoading(false);
                 setFormData(initialFormState);
                 setIsSubmitted(true);
                 setTimeout(() => {
@@ -70,11 +77,12 @@ const AddHabits = () => {
             }
         }
     };
+    
     if (isSubmitted) {
         return (
             <div className="container mx-auto max-w-lg py-20 px-4 text-center">
                 <div className="bg-white p-8 md:p-12 shadow-2xl rounded-lg border border-green-200">
-                    <img src={successImage} alt="Successfully Added Seal"  className="w-48 h-48 mx-auto mb-6"
+                    <img src={successImage} alt="Successfully Added Seal" className="w-48 h-48 mx-auto mb-6"
                     />
                     <h2 className="text-4xl font-extrabold text-green-600 mb-4">
                         Successfully Added! 🎉
@@ -86,6 +94,7 @@ const AddHabits = () => {
             </div>
         );
     }
+    
     return (
         <div className="container mx-auto max-w-2xl py-10 px-4">
             <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">
@@ -126,7 +135,7 @@ const AddHabits = () => {
                     </div>
                 </div>
                 <div className="mb-8">
-                    <label htmlFor="imageURL" className="block text-sm font-medium text-gray-700 mb-1"> Image URL  </label>
+                    <label htmlFor="imageURL" className="block text-sm font-medium text-gray-700 mb-1"> Image URL </label>
                     <input
                         type="url" id="imageURL" name="imageURL" value={formData.imageURL} onChange={handleChange} placeholder="Image link here" className="w-full input input-bordered"
                     />
