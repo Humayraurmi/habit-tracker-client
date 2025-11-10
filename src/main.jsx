@@ -15,6 +15,7 @@ import Login from './components/Login/Login.jsx';
 import AddHabits from './components/AddHabits/AddHabits.jsx';
 import MyHabits from './components/MyHabits/MyHabits.jsx';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute.jsx';
+import UpdateHabits from './components/UpdateHabits/UpdateHabits.jsx';
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: 'myHabits',
         element: <PrivateRoute><MyHabits></MyHabits></PrivateRoute>
+      },
+      {
+        path: 'updateHabit/:id', 
+        element: <PrivateRoute><UpdateHabits /></PrivateRoute>
       }
     ]
   },

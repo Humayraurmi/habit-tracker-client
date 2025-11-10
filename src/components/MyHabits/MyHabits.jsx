@@ -3,6 +3,7 @@ import { AuthContext } from '../../context/AuthContext';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import calculateCurrentStreak from '../../utils/streakUtils';
 
 const urlPromise = "http://localhost:3000";
 
@@ -21,7 +22,12 @@ const MyHabits = () => {
             const data = await response.json();
 
             if (response.ok) {
-                setHabits(data);
+                const habitsWithStreak = data.map(habit => ({
+                    ...habit,
+                    currentStreak: calculateCurrentStreak(habit.completionHistory || []) 
+                }));
+                
+                setHabits(habitsWithStreak);
             } else {
                 toast.error(data.message || 'Failed to fetch habits.');
             }
@@ -40,7 +46,6 @@ const MyHabits = () => {
     }, [userLoading, userEmail]);
 
     const handleDelete = async (id) => {
-
         const result = await Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -59,15 +64,12 @@ const MyHabits = () => {
                 const deleteResult = await response.json();
 
                 if (response.ok && deleteResult.deletedCount > 0) {
-
                     Swal.fire({
                         title: "Deleted!",
                         text: "Your habit has been deleted.",
                         icon: "success"
                     });
-
                     setHabits(prevHabits => prevHabits.filter(habit => habit._id !== id));
-
                 } else {
                     toast.error(deleteResult.message || 'Failed to delete habit.');
                 }
@@ -77,12 +79,36 @@ const MyHabits = () => {
             }
         }
     };
-    const handleMarkComplete = (id) => {
-        toast.success(`Habit ${id} marked complete for today! (Streak logic not implemented yet)`);
+    const handleMarkComplete = async (id) => {
+        try {
+            const response = await fetch(`${urlPromise}/habits/complete/${id}`, {
+                method: 'PATCH',
+            });
+            const result = await response.json();
+
+            if (response.ok) {
+                if (result.modifiedCount > 0) {
+                    toast.success('Habit marked complete! Keep the streak going!');
+                } else {
+                    toast('Already completed today!', { icon: 'ℹ️' });
+                }
+                fetchHabits();
+            } else {
+                toast.error(result.message || 'Failed to mark complete.');
+            }
+        } catch (error) {
+            console.error("Complete error:", error);
+            toast.error('An error occurred.');
+        }
     };
 
+
     if (userLoading || loading) {
-        return <div className="text-center py-20 text-xl">Loading your habits...</div>;
+        return (
+            <div className="flex justify-center items-center py-40 min-h-screen">
+                <span className="loading loading-spinner loading-lg text-primary"></span>
+            </div>
+        );
     }
 
     if (habits.length === 0) {
@@ -108,7 +134,7 @@ const MyHabits = () => {
                         <tr>
                             <th>Title</th>
                             <th>Category</th>
-                            <th>Streak</th>
+                            <th>Current Streak</th>
                             <th>Created Date</th>
                             <th className="text-center">Actions</th>
                         </tr>
@@ -118,7 +144,11 @@ const MyHabits = () => {
                             <tr key={habit._id}>
                                 <td className="font-semibold">{habit.title}</td>
                                 <td><span className="badge badge-info badge-outline">{habit.category}</span></td>
-                                <td><span className="text-lg font-bold text-green-600">0 🔥</span></td>
+                                <td>
+                                    <span className="text-lg font-bold text-green-600">
+                                        {habit.currentStreak || 0} 🔥 
+                                    </span>
+                                </td>
                                 <td>{new Date(habit.createdAt).toLocaleDateString()}</td>
                                 <td className="flex justify-center space-x-2 py-4">
                                     <button
