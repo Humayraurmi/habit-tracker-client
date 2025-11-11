@@ -24,9 +24,9 @@ const MyHabits = () => {
             if (response.ok) {
                 const habitsWithStreak = data.map(habit => ({
                     ...habit,
-                    currentStreak: calculateCurrentStreak(habit.completionHistory || []) 
+                    currentStreak: calculateCurrentStreak(habit.completionHistory || [])
                 }));
-                
+
                 setHabits(habitsWithStreak);
             } else {
                 toast.error(data.message || 'Failed to fetch habits.');
@@ -79,11 +79,23 @@ const MyHabits = () => {
             }
         }
     };
+
     const handleMarkComplete = async (id) => {
+        const emailToSend = user.email.toLowerCase();
+        const nameToSend = user.displayName || user.email.split('@')[0];
+
         try {
             const response = await fetch(`${urlPromise}/habits/complete/${id}`, {
                 method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userEmail: emailToSend,
+                    userName: nameToSend,
+                }),
             });
+
             const result = await response.json();
 
             if (response.ok) {
@@ -142,11 +154,15 @@ const MyHabits = () => {
                     <tbody>
                         {habits.map((habit) => (
                             <tr key={habit._id}>
-                                <td className="font-semibold">{habit.title}</td>
-                                <td><span className="badge badge-info badge-outline">{habit.category}</span></td>
+                                <td className="font-semibold">{habit.title || habit.habit_name}</td>
+                                <td>
+                                    <span className="badge badge-info badge-outline">
+                                        {habit.category || 'N/A'}
+                                    </span>
+                                </td>
                                 <td>
                                     <span className="text-lg font-bold text-green-600">
-                                        {habit.currentStreak || 0} 🔥 
+                                        {habit.currentStreak || 0} 🔥
                                     </span>
                                 </td>
                                 <td>{new Date(habit.createdAt).toLocaleDateString()}</td>
@@ -172,6 +188,7 @@ const MyHabits = () => {
                                 </td>
                             </tr>
                         ))}
+
                     </tbody>
                 </table>
             </div>

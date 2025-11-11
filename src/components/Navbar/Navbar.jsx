@@ -1,4 +1,4 @@
-import React, { use, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Link, NavLink } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
@@ -6,7 +6,7 @@ import { AuthContext } from '../../context/AuthContext';
 const LOGO_URL = "https://i.ibb.co.com/bMqn69Tp/habit-tracker-icon-lineal-color-260nw-2636078649.webp";
 
 const Navbar = () => {
-    const { user, signOutUser } = use(AuthContext);
+    const { user, signOutUser } = useContext(AuthContext); 
     const [showDropdown, setShowDropdown] = useState(false);
 
 
@@ -22,19 +22,11 @@ const Navbar = () => {
             })
     }
 
-    const authLinks = (
-        <>
-            <li><Link to='/login'>Login</Link></li>
-        </>
-    );
-
     const links = <>
         <li><NavLink to='/'>Home</NavLink></li>
         <li><NavLink to='/publicHabits'>Public Habits</NavLink></li>
         <li><NavLink to='/addHabit'>Add Habit</NavLink></li>
         <li><NavLink to='/myHabits'>My Habits</NavLink></li>
-
-        {!user && authLinks}
     </>
 
     return (
@@ -48,6 +40,7 @@ const Navbar = () => {
                         tabIndex="-1"
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow font-bold text-gray-600">
                         {links}
+                        {!user && <li><Link to='/login'>Login</Link></li>} 
                     </ul>
                 </div>
 
@@ -72,8 +65,7 @@ const Navbar = () => {
             <div className="navbar-end">
                 {!user ? (
                     <div className="flex items-center gap-2">
-                        <Link to="/login" className="btn btn-primary hidden lg:inline-flex">Login</Link>
-
+                        <Link to="/login" className="btn btn-primary hidden lg:inline-flex">Login</Link> 
                         <Link to="/register" className="btn btn-primary btn-sm sm:btn-md">SignUp</Link>
                     </div>
                 ) : (

@@ -16,11 +16,14 @@ import AddHabits from './components/AddHabits/AddHabits.jsx';
 import MyHabits from './components/MyHabits/MyHabits.jsx';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute.jsx';
 import UpdateHabits from './components/UpdateHabits/UpdateHabits.jsx';
+import HabitDetails from './components/HabitDetails/HabitDetails.jsx';
+import ErrorPage from './components/ErrorPage/ErrorPage.jsx';
 
 const router = createBrowserRouter([
   {
     path: "/",
     Component: RootLayout,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         index: true,
@@ -47,8 +50,12 @@ const router = createBrowserRouter([
         element: <PrivateRoute><MyHabits></MyHabits></PrivateRoute>
       },
       {
-        path: 'updateHabit/:id', 
+        path: 'updateHabit/:id',
         element: <PrivateRoute><UpdateHabits /></PrivateRoute>
+      },
+      {
+        path: "/habit-details/:id" ,
+        element: < PrivateRoute > <HabitDetails /></PrivateRoute>
       }
     ]
   },

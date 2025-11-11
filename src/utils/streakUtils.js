@@ -38,7 +38,7 @@ const calculateCurrentStreak = (completionHistory) => {
         }
 
         const expectedPreviousDay = new Date(lastDate);
-        expectedPreviousDay.setDate(lastDate.getDate() - 1); // গতকালের তারিখ
+        expectedPreviousDay.setDate(lastDate.getDate() - 1); 
 
         if (dayStart.getTime() === expectedPreviousDay.getTime()) {
             streak++;
