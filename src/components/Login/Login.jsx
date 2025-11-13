@@ -43,7 +43,7 @@ const Login = () => {
                     image: result.user.photoURL,
                 };
 
-                fetch("http://localhost:3000/users", {
+                fetch("https://habit-tracker-server-seven.vercel.app/users", {
                     method: 'POST',
                     headers: { 'content-type': 'application/json' },
                     body: JSON.stringify(newUser)

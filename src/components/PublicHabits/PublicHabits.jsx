@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import HabitCard from '../HabitCard/HabitCard';
 
-const ALL_HABITS_URL = "http://localhost:3000/public-habits"; 
+const ALL_HABITS_URL = "https://habit-tracker-server-seven.vercel.app/public-habits"; 
 
 const CATEGORIES = [
     'All', 'Morning', 'Work', 'Fitness', 'Evening', 'Study'

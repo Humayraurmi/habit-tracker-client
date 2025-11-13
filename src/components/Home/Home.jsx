@@ -6,10 +6,10 @@ import HowHabitSyncWorks from '../HowHabitSyncWorks/HowHabitSyncWorks';
 import Testimonials from '../Testimonials/Testimonials';
 import LandingSections from '../../LandingSection/LandingSection';
 
-const featuredHabitsPromise = fetch('http://localhost:3000/featured-habits').then(res=>res.json())
-const benefitsHabitsPromise = fetch("http://localhost:3000/benefits").then(res=>res.json())
-const howItWorksStepsPromise = fetch("http://localhost:3000/how-it-works").then(res=>res.json());
-const testimonialsPromise = fetch("http://localhost:3000/testimonials").then(res=>res.json());
+const featuredHabitsPromise = fetch('https://habit-tracker-server-seven.vercel.app/featured-habits').then(res=>res.json())
+const benefitsHabitsPromise = fetch("https://habit-tracker-server-seven.vercel.app/benefits").then(res=>res.json())
+const howItWorksStepsPromise = fetch("https://habit-tracker-server-seven.vercel.app/how-it-works").then(res=>res.json());
+const testimonialsPromise = fetch("https://habit-tracker-server-seven.vercel.app/testimonials").then(res=>res.json());
 
 
 const Home = () => {

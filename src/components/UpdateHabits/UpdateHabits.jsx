@@ -3,7 +3,7 @@ import { AuthContext } from '../../context/AuthContext';
 import toast from 'react-hot-toast';
 import { useParams, useNavigate } from 'react-router-dom';
 
-const urlPromise = "http://localhost:3000";
+const urlPromise = "https://habit-tracker-server-seven.vercel.app";
 
 const CATEGORIES = [
     'Morning', 'Work', 'Fitness', 'Evening', 'Study'

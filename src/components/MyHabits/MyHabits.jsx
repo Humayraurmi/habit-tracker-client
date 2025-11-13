@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import calculateCurrentStreak from '../../utils/streakUtils';
 
-const urlPromise = "http://localhost:3000";
+const urlPromise = "https://habit-tracker-server-seven.vercel.app";
 
 const MyHabits = () => {
     const { user, loading: userLoading } = use(AuthContext);

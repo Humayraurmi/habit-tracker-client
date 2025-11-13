@@ -3,7 +3,7 @@ import { AuthContext } from '../../context/AuthContext';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
-const addHabitsPromise = "http://localhost:3000/habits";
+const addHabitsPromise = "https://habit-tracker-server-seven.vercel.app/habits";
 const successImage = "https://i.ibb.co.com/9k7vCj0F/successfully-completed-vector-seal-isolated-white-background-168286016.webp";
 
 const CATEGORIES = [

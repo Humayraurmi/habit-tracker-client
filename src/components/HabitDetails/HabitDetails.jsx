@@ -5,7 +5,7 @@ import calculateCurrentStreak from '../../utils/streakUtils';
 import ProgressBar from '../../components/ProgressBar/ProgressBar';
 import { AuthContext } from '../../context/AuthContext';
 
-const urlPromise = "http://localhost:3000";
+const urlPromise = "https://habit-tracker-server-seven.vercel.app";
 
 const calculateProgress = (completionHistory) => {
     if (!completionHistory || completionHistory.length === 0) return 0;
